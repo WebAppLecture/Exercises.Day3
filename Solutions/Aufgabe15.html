@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Lösung zur 15. Aufgabe</title>
+<style>
+</style>
+</head>
+<body>
+<script>
+//Erstellen unseren Prototypen um Array zu erweitern
+Array.prototype.shuffle = function() {
+	var t = []; //Temporäres Array
+	
+	for(var i = 0; i < this.length; i++) {
+		var k = Math.floor(Math.random() * this.length);
+		t.push(this[k]);//Umkopieren
+		this.splice(k, 1);//Löschen aus Original
+	}
+	
+	for(var i = 0; i < t.length; i++) //Rüberkopieren
+		this.push(t[i]);
+};
+
+//Hier kommt unsere Testausgabe hin (Testen über Konsole ist leichter, aber wir wollen ja auch HTML machen!)
+var array = [];//Globales Array zum Speichern
+
+function add() { //Wird aufgerufen mit dem Add Button
+	array.push(document.getElementById('string').value);//String hinzufügen
+	document.getElementById('string').value = '';//Textbox leeren
+	ausgabe();//Ausgabe schreiben
+}
+
+function shuffle() { //Wird aufgerufen mit dem Shuffle Button
+	array.shuffle();//Shuffle durchführen
+	ausgabe();//Ausgabe schreiben
+}
+
+function ausgabe() { //Ausgabe schreiben
+	var a = [];//Temporäres Array für Ausgabe
+	
+	for(var i = 0; i < array.length; i++) //Durch unser globales Array durchgehen
+		a.push((i + 1) + '. Element: <strong>' + array[i] + '</strong>'); //Einzelnen Einträge Formatiert hinzufügen
+	
+	document.getElementById('ausgabe').innerHTML = a.join('<br/>'); //Temporäres Ausgabe-Array mit <br/> zwischen den Einträgen ausgeben
+}
+</script>
+<div id="eingabe">
+<input type="text" id="string" placeholder="Bitte neuen Inhalt eingeben" /><button onclick="add();">Add</button><button onclick="shuffle();">Shuffle</button>
+</div>
+<div id="ausgabe"></div>
+<footer>&copy; <address style="display: inline;">Florian Rappl</address>. Zuletzt aktualisiert am <time datetime="2011-11-08T06:59Z" style="display: inline;">08.11.2011 um 07:59</time></footer>
+</body>
+</html>

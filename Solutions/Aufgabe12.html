@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Lösung zur 12. Aufgabe (1. Schlüsselaufgabe)</title>
+<style>
+label
+{
+	width: 130px;
+	display: inline-block;
+	font-weight: bold;
+	text-align: right;
+	margin-right: 20px;
+	height: 20px;
+}
+input, button
+{
+	height: 20px;
+	width: 200px;
+}
+#fehler
+{
+	font-size: small;
+	color: #F00;
+}
+#anzeige
+{
+	font-size: small;
+	color: #CCC;
+}
+#anzeige:before
+{
+	content: '(';
+}
+#anzeige:after
+{
+	content: ')';
+}
+</style>
+</head>
+<body>
+<script>
+var f = function (x) { return Math.cos(x) * Math.sin(x); };
+
+function calc()  {
+
+	//Rest bestimmen
+	var zeros = [];
+	var current = parseFloat(document.getElementById('ti').value);
+	var delta = (parseFloat(document.getElementById('tf').value) - current) / parseFloat(document.getElementById('N').value);
+	var s = sign(f(current));
+	
+	if(s === 0) //Falls schon auf Nullstelle liegen - hinzufügen
+		zeros.push(current);
+
+	for(var i = 0; i <= parseInt(document.getElementById('N').value); i++)  {
+		//im 1. Durchlauf haben wir die Nullstelle bereits - hier nur angleich
+		var ns = i ? sign(f(current)) : s;
+
+		//Ansonsten wird Nullstelle gefunden wenn ns != s ist (beides Int, daher !==)
+		if(ns !== s)
+			zeros.push(current);
+		
+		//Alle Nullstelle durch neue Setzen für nächsten Vergleich
+		s = ns;
+		//Aktuellen x-Wert um delta erhöhen
+		current += delta;
+	}
+
+	//Ergebnis ausgeben
+	document.getElementById('result').value = zeros.length ? zeros.join(';') : 'Keine Nullstellen gefunden';
+	var el = document.getElementsByTagName('p');
+	el[el.length - 1].style.display = 'block';
+}
+
+//Überprüfen
+function check() {
+	if(document.getElementById('ti').value > document.getElementById('tf').value) { //Hier ist ungültig
+		document.getElementsByTagName('button')[0].disabled = 'disabled';
+		document.getElementById('fehler').innerHTML = 'Von muss kleiner gleich Bis sein!';
+	} else {//Hier ist gültig
+		document.getElementsByTagName('button')[0].disabled = '';
+		document.getElementById('fehler').innerHTML = '';
+	}
+}
+
+//Hilfsfunktion für Vorzeichenberechnung
+function sign(x) {
+	if(x !== 0)
+		return x / Math.abs(x);
+	return 0;
+}
+</script>
+<h1>Nullstellen-Berechnung von cos(x)*sin(x)</h1>
+<p><label>Von</label><input type="number" min="-1e308" max="-1e308" id="ti" onchange="check();" value="0" /><span id="fehler"></span></p>
+<p><label>Bis</label><input type="number" min="-1e308" max="-1e308" id="tf" onchange="check();" value="0" /></p>
+<p><label>Genauigkeit</label><input type="range" min="2" max="10000" id="N" onchange="document.getElementById('anzeige').innerHTML = this.value;" value="1000" /><span id="anzeige">1000</span></p>
+<p><label></label><button onclick="calc();">Auswerten</button></p>
+<p style="display:none"><label>Ergebnis</label><input type="text" id="result" />
+<footer>&copy; <address style="display: inline;">Florian Rappl</address>. Zuletzt aktualisiert am <time datetime="2011-10-21T20:39Z" style="display: inline;">21.10.2011 um 21:39</time></footer>
+</body>
+</html>

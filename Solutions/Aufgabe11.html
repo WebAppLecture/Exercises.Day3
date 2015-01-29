@@ -1,0 +1,130 @@
+﻿<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<title>Lösung zur 11. Aufgabe</title>
+<style>
+label
+{
+	display: inline-block;
+	margin-right: 10px;
+	width: 190px;
+	font-weight: bold;
+	text-align: right;
+}
+span { font-size: small; margin-left: 20px; }
+.error { color: #F00; }
+.warning { color: #F80; }
+.slider { color: #AAA; }
+button { margin-left: 200px; }
+form { margin: 20px; }
+</style>
+</head>
+<body onload="validateForm();">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script>
+var preview = false;
+var today = new Date();
+var minDate = mdate((today.getFullYear() - 18) + '-' + (today.getMonth() + 1) + '-' + (today.getDate() + 1));
+function validateForm() {
+	var valid = true;
+		
+	if (reg.pwd.value != reg.confirm.value) {
+		valid = false;
+		reg.confirm.parentElement.getElementsByTagName('span')[0].innerHTML = 'Die Passwörter müsssen identisch sein.';
+	} else
+		reg.confirm.parentElement.getElementsByTagName('span')[0].innerHTML = '';
+		
+	reg.credits.parentElement.getElementsByTagName('span')[0].innerHTML = reg.credits.value;
+	
+	if (reg.credits.value < 50)
+		reg.credits.parentElement.getElementsByTagName('span')[1].innerHTML = 'Mit so wenig LP könnte es kritisch werden!';
+	else
+		reg.credits.parentElement.getElementsByTagName('span')[1].innerHTML = '';
+		
+	if (!reg.name.validity.valid) {
+		valid = false;
+		reg.name.parentElement.getElementsByTagName('span')[0].innerHTML = reg.name.validity.valueMissing ? 'Ein Name muss eingegeben werden.' : 'Der Name muss im Format Nachname, Vorname eingegeben werden.';
+	} else
+		reg.name.parentElement.getElementsByTagName('span')[0].innerHTML = '';
+		
+	if (!reg.email.validity.valid) {
+		valid = false;
+		reg.email.parentElement.getElementsByTagName('span')[0].innerHTML = reg.email.validity.typeMismatch ? 'Die E-Mail muss gültig sein.' : 'Bitte die E-Mail Adresse eingeben.';
+	} else
+		reg.email.parentElement.getElementsByTagName('span')[0].innerHTML = '';
+		
+	if (!reg.phone.validity.valid) {
+		valid = false;
+		reg.phone.parentElement.getElementsByTagName('span')[0].innerHTML = 'Es muss ein gültiges Format verwendet werden.';
+	} else
+		reg.phone.parentElement.getElementsByTagName('span')[0].innerHTML = '';
+		
+	if (!reg.pwd.validity.valid) {
+		valid = false;
+		reg.pwd.parentElement.getElementsByTagName('span')[0].innerHTML = 'Es muss ein Passwort gewählt werden.';
+	} else
+		reg.pwd.parentElement.getElementsByTagName('span')[0].innerHTML = '';
+		
+	if (!reg.birthday.validity.valid) {
+		valid = false;
+		reg.birthday.parentElement.getElementsByTagName('span')[0].innerHTML = 'Es muss ein Geburtstag angegeben werden.';
+	} else if (mdate(reg.birthday.value) > minDate) {
+		valid = false;
+		reg.birthday.parentElement.getElementsByTagName('span')[0].innerHTML = 'Sie müssen min. 18 Jahre alt sein.';
+	} else
+		reg.birthday.parentElement.getElementsByTagName('span')[0].innerHTML = '';
+	
+	reg.submit.disabled = !valid;
+}
+
+function mdate(s) {
+	var a = s.split('-');
+	var d = new Date();
+	d.setFullYear(a[0]);
+	d.setMonth(a[1] - 1);
+	d.setDate(a[2]);
+	d.setHours(0);
+	d.setMinutes(0);
+	d.setSeconds(0);
+	return d;
+}
+
+function previewForm() {
+	if(preview) {
+		preview = false;
+	} else {
+		preview = true;
+		$('#passwordrows').hide();
+		$('span.slider').hide();
+		$('span.warning').hide();
+		$('input').each(function(i, v) {
+			if(v.value) {
+				$(v).parent().append('<span class="preview">' + v.value + '</span>');
+				$(v).hide();
+			} else
+				$(v).parent().hide();
+		});
+		$(reg.submit).text('Registrierung abschicken');
+	}
+	
+	return !preview;
+}
+</script>
+<h1>Benutzerregistrierung</h1>
+<form onforminput="validateForm();" name="reg" onsubmit="return previewForm();" action="http://html5.florian-rappl.de/submitted.html" method="GET" />
+<p><label>Name*</label><input type="text" placeholder="Nachname, Name" pattern="[a-zA-Z\-]+,\s?[a-zA-Z]+" required name="name" autofocus /><span class="error"></span></p>
+<p><label>E-Mail*</label><input type="email" placeholder="ihr.name@provider.de" required name="email" /><span class="error"></span></p>
+<p><label>Telefonnummer</label><input type="tel" placeholder="+49 (123) 4567" name="phone" pattern="\+[0-9]{2}\s?\([0-9]{3}\)\s?[0-9]{4,}" /><span class="error"></span></p>
+<p><label>Geburtsdatum*</label><input type="date" name="birthday" required /><span class="error"></span></p>
+<p><label>Leistungspunkte</label><input type="range" min=0 max=180 value=0 name="credits" /><span class="slider"></span><span class="warning"></span></p>
+<p><label>Eigene Homepage</label><input type="url" name="homepage" /></p>
+<div id="passwordrows">
+<p><label>Passwort festlegen</label><input type="password" name="pwd" required /><span class="error"></span></p>
+<p><label>Passwort bestätigen</label><input type="password" name="confirm" required /><span class="error"></span></p>
+</div>
+<button type="submit" name="submit">Vorschau zeigen</button>
+</form>
+<footer>&copy; <address style="display: inline;">Florian Rappl</address>. Zuletzt aktualisiert am <time datetime="2011-10-22T19:31Z" style="display: inline;">22.10.2011 um 20:31</time></footer>
+</body>
+</html>
