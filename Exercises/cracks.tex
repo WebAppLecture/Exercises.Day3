@@ -1,0 +1,21 @@
+\Exercise{Für Tüftler}
+%
+\par Sie können Aufgabe 12 durch Einbau einer Textbox über \htag{textarea} erweitern. In diesem Eingabefeld soll dabei eine (beliebige) Methode eingegeben werden können, die dann auf Nullstellen untersucht werden kann. Dies können Sie über folgenden Trick erreichen:
+%
+\begin{itemize}
+\item Beim Laden des Dokumentes legen Sie sich bereits eine Variable $f$ an, die einfach eine leere Methode mit Rückgabe von $0$, d.h. 
+%
+\begin{lstlisting}
+var f = function(x) { return 0; };
+\end{lstlisting}
+%
+darstellt.
+\item Beim \jvar{onsubmit} des Formulars erstellen Sie über \jfunc{createElement} ein neues Script-Element.
+\item Dieses Script Element soll folgenden \jvar{innerHTML} Wert erhalten (\jvar{tai} steht symbolisch für den Inhalt der Textbox):
+%
+\begin{lstlisting}
+script.innerHTML = 'f = function (x) { var y = 0.0; ' + tai + '; return y; };';
+\end{lstlisting}
+%
+\item Nun dem body das Script-Element hinzufügen und die Auswertung wie in Aufgabe 12 durchführen.
+\end{itemize}

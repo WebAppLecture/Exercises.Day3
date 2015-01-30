@@ -1,0 +1,18 @@
+\RequiredExercise{Mit jQuery eine Vorschau der Sendedaten erstellen}
+%
+\par Binden Sie nun jQuery als externe JavaScript Quelle ein. Verändern Sie das Formular von Blatt 2 sobald es abgeschickt wird, so dass es nicht direkt an die im action Attribut definierte URL geschickt sondern nur geändert\footnote{Indem Sie z.B. \jvar{onsubmit='return false;'} oder \jvar{onsubmit='return myfoo();'}, mit \jvar{function myfoo() \{ return false; \}}, schreiben}, d.h. der DOM manipuliert wird. Die Änderung soll sichtbar alle \htag{input} Felder in \htag{span}-Tags ändern. Intern soll jedoch folgendes geschehen:
+%
+\begin{itemize}
+\item Die Input Felder sollen über jQuery als nicht sichtbar gesetzt werden:
+%
+\begin{lstlisting}
+$('input').hide();
+\end{lstlisting}
+%
+\item Vor jedes gefundene \htag{input}-Element soll über \jfunc{insertBefore} ein neues \htag{span}-Element gesetzt werden.
+\item Der Inhalt des neuen Elementes soll dem Wert des Eingabeelementes entsprechen.
+\item Die Zeilen für die Passworteingabe sind komplett aus dem Sichtfeld zu entfernen.
+\item Sie können jQuery z.B. von hier einbinden: \url{http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js}.
+\end{itemize}
+%
+\par Jetzt sollte der Submit Button wie man es eingangs erwartet hat funktionieren, d.h. Abschicken schickt die Daten des Formulars an die angegebene Url. Zum Testen können Sie folgende die Url \url{http://html5.florian-rappl.de/submitted.html} verwenden.
