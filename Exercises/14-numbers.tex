@@ -13,15 +13,15 @@ Im zweiten Container sollen zwei \htag{span} für die verbleibende Zeit, Anzahl 
 Versuche, sowie ein \htag{select}-Feld mit Optionen ``Zahl wählen'' und den
 verfügbaren Zahlen (von Minimum bis Maximum) angezeigt werden.
 \item
-Der dritte Container beinhaltet ein Button (``Neustarten'') und ein \htag{span}
+Der dritte Container beinhaltet einen Button (``Neustarten'') und ein \htag{span}
 zur Anzeige des Ergebnisses.
 \item
-Das Spiel soll folgendermaßen ablaufen: Man beginnt auf dem ersten Spielbildschirm (\htag{div} eins). Dort kann man die gewünschte Zeit zum Raten festlegen, sowie den Zahlenbereich (Minimum und Maximum) in dem sich die zu erratende Zufallszahl befindet. Mit Klick auf den Button beginnt das Spiel. Dieses findet in Container 2 statt. Hier kann man nun mittels der \htag{select}-Box Zahlen auswählen, während die Zeit abläuft. Wählt man die richtige Zufallszahl, so hat man gewonnen und kommt in Container 3 mit einer Gewinner-Meldung. Ansonsten kommt man bei Ablauf der Zeit ebenfalls in Container 3 allerdings mit Verlierer-Meldung. Dort lässt sich das Spiel per Button neu starten.
+Das Spiel soll folgendermaßen ablaufen: Man beginnt auf dem ersten Spielbildschirm (\htag{div} eins). Dort kann man die gewünschte Zeit zum Raten festlegen, sowie den Zahlenbereich (Minimum und Maximum), in dem sich die zu erratende Zufallszahl befindet. Mit Klick auf den Button beginnt das Spiel. Dieses findet in Container 2 statt. Hier kann man nun mittels der \htag{select}-Box Zahlen auswählen, während die Zeit abläuft. Wählt man die richtige Zufallszahl, so hat man gewonnen und kommt in Container 3 mit einer Gewinner-Meldung. Ansonsten kommt man bei Ablauf der Zeit ebenfalls in Container 3, allerdings mit Verlierer-Meldung. Dort lässt sich das Spiel per Button neu starten.
 \item
 Schreiben Sie JavaScript in einer externen Datei (\emph{*.js}). Beim Starten
 des Scriptes soll eine anonyme Methode selbstständig aufgerufen werden, die
-einige Veränderungen am HTML-Code durchführen: Die letzten beiden Container
-sollen verborgen werden (entweder mit jQuery über Standardmethoden):
+einige Veränderungen am HTML-Code durchführt: Die letzten beiden Container
+sollen verborgen werden (entweder mit jQuery oder über Standardmethoden):
 %
 \begin{lstlisting}
 // jQuery
@@ -36,8 +36,8 @@ einen \jvar{onclick}-Callback erhalten, genauso wie der Button im dritten
 Container. Das \htag{select}-Feld im zweiten Container soll einen
 \jvar{onchange}-Callback erhalten.
 \item
-Überlegen Sie sich die Callbacks geschickt zu implementieren, so dass folgende
-Funktionalität erzeugt wird: Es ist immer nur ein Container sichtbar, und es
+Überlegen Sie sich, die Callbacks geschickt zu implementieren, so dass folgende
+Funktionalität erzeugt wird: Es ist immer nur ein Container sichtbar und es
 ist immer die aktuelle Anzahl an verbleibenden Sekunden bis zum Spielende
 sichtbar.
 \item

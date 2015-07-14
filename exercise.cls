@@ -53,7 +53,7 @@
 \newcommand{\Sheet}{\exercise@sheet}
 \newcommand{\Lecture}{WebApplications mit HTML5, CSS3 und JavaScript}
 \newcommand{\Name}{Markus Huber, Florian Rappl}
-\newcommand{\Semester}{WS 2014/15}
+\newcommand{\Semester}{WS 2015/16}
 \newcommand{\University}{Universität Regensburg}
 %
 %------------------------------------------
